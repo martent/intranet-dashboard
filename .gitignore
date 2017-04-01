@@ -3,6 +3,7 @@
 /vendor/bundle/
 .vagrant
 log
+log2
 tmp
 doc
 config/database.yml
@@ -11,6 +12,7 @@ spec/auth_credentials.yml
 import
 reports/*.*
 public/assets
-public/system/avatars
+/public/system/avatars
+/public/system/profilbilder/
 /config/secrets.yml
 /config/deploy.yml

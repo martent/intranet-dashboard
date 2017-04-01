@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 namespace :users do
   desc "Update all user profiles from LDAP"
   task update_profiles: :environment do
@@ -20,6 +19,7 @@ namespace :users do
           if user.deactivated? && user.deactivated_at < 45.days.ago
             # Delete the user if it has been deactivated in the Dashboard for 45 days
             user.destroy
+            deleted += 1
           elsif !user.deactivated?
             # Mark the user as deactivated
             user.deactivated = true
@@ -29,9 +29,9 @@ namespace :users do
             deactivated += 1
           end
         end
-      rescue Exception => e
+      rescue => e
         puts "Error updating user #{user.id}"
-        puts "Exception: #{e}"
+        puts "Error: #{e}"
       end
     end
 
@@ -39,10 +39,10 @@ namespace :users do
     axlsx = Axlsx::Package.new
     heading = axlsx.workbook.styles.add_style font_name: 'Calibri', bg_color: "000000", fg_color: "FFFFFF"
     body = axlsx.workbook.styles.add_style font_name: 'Calibri', fg_color: "000000"
-    axlsx.workbook.add_worksheet(name: "KB-ADM diff") do |sheet|
-      sheet.add_row ["Namn", "Katalognamn", "Adress i kontaktboken", "Adress i ADM", "Kontaktkort"], style: heading
+    axlsx.workbook.add_worksheet(name: "KB-Intra diff") do |sheet|
+      sheet.add_row ["Namn", "Katalognamn", "Adress i kontaktboken", "Adress i Intra", "Kontaktkort"], style: heading
       address_diff.each do |diff|
-        diff << "http://webapps06.malmo.se/dashboard/users/#{diff[1]}"
+        diff << "https://minsida.malmo.se/users/#{diff[1]}"
         sheet.add_row diff, style: body
       end
       sheet.add_row ["Rapport genererad #{Time.now.localtime.to_s[0..18]}"], style: body

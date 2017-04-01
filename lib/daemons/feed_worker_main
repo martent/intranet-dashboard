@@ -5,13 +5,7 @@ Dir.chdir(root)
 
 require File.join(root, "config", "environment")
 
-$running = true
-Signal.trap("TERM") do
-  $running = false
-end
-
-# Run the FeedWorker
-while($running) do
-  FeedWorker.update_all
+loop do
+  FeedWorker.update('main_feeds')
   sleep 5
 end

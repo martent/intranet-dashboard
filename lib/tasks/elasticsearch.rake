@@ -3,8 +3,10 @@ Rake::TaskManager.record_task_metadata = true
 
 namespace :elasticsearch do
   desc "Zero downtime re-indexing
-  $ RAILS_ENV=development rake environment elasticsearch:reindex CLASS='User' ALIAS='employees'"
+  $ RAILS_ENV=development bundle exec rake environment elasticsearch:reindex CLASS='User' ALIAS='employees'"
   task reindex: :environment do |task|
+    puts "\n[NOTICE] You will get a 404 error message below. That is expected.\n\n"
+
     if ENV['CLASS'].blank? || ENV['ALIAS'].blank?
       puts "USAGE:"
       puts task.full_comment

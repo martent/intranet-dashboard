@@ -16,7 +16,6 @@
       = f.input :title, as: :more_info, wrapper: :more_info
       = f.input :professional_bio, input_html: { rows: 7 }
       = f.input :company_short, as: :more_info, wrapper: :more_info
-      = f.input :status_message
 
       %h2.group-title Grundprofil i Komin:
       = f.error(:department, class: "warning")
@@ -43,7 +42,7 @@
         .more-info
           %p
             = "Ditt fasta telefonnummer finns lagrat i Malmö stads centrala databas över alla anställda. Kontaktboken visar vilket nummer som är knutet till dig. Om det visas fel telefonnummer beställer du en ändring i "
-            = link_to "IT-kompassen.", "http://marval.malmo.se/msmselfservice/ServiceCatalogueEx.aspx?g=13"
+            = link_to "IT-ärendehanteringssystemet (MSM).", "https://msm.intra.malmo.se/MSMSelfService/"
             = "Om du behöver hjälp, kontakta ITS, 040-34 27 27."
       = f.input :cell_phone, wrapper: :more_info do
         = @user.cell_phone
@@ -51,7 +50,7 @@
         .more-info
           %p
             = "Ditt mobilnummer finns lagrat i Malmö stads centrala databas över alla anställda. Kontaktboken visar vilket nummer som är knutet till dig. Om det visas fel telefonnummer beställer du en ändring i "
-            = link_to "IT-kompassen.", "http://marval.malmo.se/msmselfservice/ServiceCatalogueEx.aspx?g=13"
+            = link_to "IT-ärendehanteringssystemet (MSM).", "https://msm.intra.malmo.se/MSMSelfService/"
             = "Om du behöver hjälp, kontakta ITS, 040-34 27 27."
 
       = f.input :skype
@@ -97,4 +96,4 @@
     .box-content.basic.form-data
       %section.misc
         %p= "Medarbetaren kommer att raderas permanent från Kontaktboken. Detta går inte att ångra."
-        .delete= link_to "Radera #{@user.first_name} #{@user.last_name} permanent", @user, data: { confirm: 'Är du säker på att du vill radera medarbetaren permanent?', method: :delete }, class: "btn btn-danger btn-default"
+        .delete= link_to "Radera #{@user.first_name} #{@user.last_name} permanent", @user, method: :delete, data: { confirm: 'Är du säker på att du vill radera medarbetaren permanent?' }, class: "btn btn-danger btn-default"

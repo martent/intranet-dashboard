@@ -25,16 +25,18 @@ Dashboard::Application.routes.draw do
   get "/users/tags"
   get "/users" => "users#search"
 
-  # Avatars belongs to users but has its own controller
-  resources :avatars
-  # Stream out :username's avatar
-  get "/users/:username/avatars/(:style)" => "avatars#show", as: "user_avatar"
-
   # Map username instead of user id
   get "/users/:username" => "users#show", as: "user"
   resources :users, except: [:show]
   get "/my_profile" => "users#my_profile", as: "my_profile"
   get "/my_roles" => "users#my_roles", as: "my_roles"
+
+  # Avatars belongs to users but has its own controller
+  # Stream out :username's avatar
+  # Served as static files in production, check paperclip.rb and app_config.yml
+  get "/users/:username/(:style)" => "avatars#show", as: "avatar"
+  get "/users/:id/avatar/edit" => "avatars#edit", as: "edit_avatar"
+  patch "/users/:id/avatars" => "avatars#update", as: "update_avatar"
 
   get "/colleagueships/search" => "colleagueships#search", as: "colleagueships_search"
   resources :colleagueships
@@ -57,9 +59,6 @@ Dashboard::Application.routes.draw do
   get "/activities/search" => "activities#search", as: "activities_search"
   get "/activities/merge/:id" => "activities#edit_merge", as: "activities_edit_merge"
   patch "/activities/merge/:id" => "activities#merge", as: "activities_merge"
-
-  get  "/search" => "site_search#index"
-  get  "/search/autocomplete" => "site_search#autocomplete", as: "site_search_autocomplete"
 
   get 'saml/new'
   post 'saml/consume'

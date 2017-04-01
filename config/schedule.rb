@@ -13,8 +13,20 @@ if environment == "test"
     rake "users:update_profiles"
   end
 
+  every :sunday, :at => '5:45am' do
+    rake "users:map_cmg_ids"
+  end
+
   every :day, :at => '4:13am' do
-    rake "delete_old_feed_entries"
+    rake "feeds:delete_old_entries"
+  end
+
+  every :day, :at => '4:17am' do
+    rake "feeds:delete_orphans"
+  end
+
+  every :saturday, :at => '4:21am' do
+    rake "db:optimize_tables"
   end
 end
 
@@ -28,6 +40,14 @@ if environment == "production"
   end
 
   every :day, :at => '4:13am' do
-    rake "delete_old_feed_entries"
+    rake "feeds:delete_old_entries"
+  end
+
+  every :day, :at => '4:17am' do
+    rake "feeds:delete_orphans"
+  end
+
+  every :saturday, :at => '4:21am' do
+    rake "db:optimize_tables"
   end
 end

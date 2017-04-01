@@ -29,7 +29,6 @@
         = simple_format @user.professional_bio, class: "professional-bio"
         %p.phone= [@user.phone, @user.cell_phone].reject(&:blank?).join(", ")
         %p.email= @user.email
-        %p.status_message= "Statusmeddelande: #{@user.status_message || "Jag har ingen status än"}"
         - unless @user.cmg_id == "0"
           #user-activities.hide{ "data-path" => user_activities_path(@user.cmg_id) }
 
@@ -68,8 +67,8 @@
       %section.intranet-activities
         %h2.group-title Kominaktiviteter
         %ul
-          %li= link_to "Nyheter som #{@user.first_name} skrivit", "https://webapps04.malmo.se/nyheter/author/#{@user.username}"
-          %li= link_to "Blogginlägg som #{@user.first_name} gjort", "https://webapps04.malmo.se/blogg/author/#{@user.username}"
+          %li= link_to "Nyheter som #{@user.first_name} skrivit", "https://kominnyheter.malmo.se/author/#{@user.username}"
+          %li= link_to "Blogginlägg som #{@user.first_name} gjort", "https://kominblogg.malmo.se/author/#{@user.username}"
 
       %section.personal
         %h2.group-title Personligt
